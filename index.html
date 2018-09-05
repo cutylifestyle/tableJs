@@ -3,9 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Table.js</title>
+    <style>
+
+        html,body{
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #wrap{
+            width: 500px;
+            height: 400px;
+            border: 1px solid red;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    </style>
     <script src="js/table.js"></script>
 </head>
 <body>
+    <div class="wrap"></div>
+    <div class="wrap"></div>
+    <script>
+        new Table({
+            el:".wrap"
+        });
 
+    </script>
 </body>
 </html>
