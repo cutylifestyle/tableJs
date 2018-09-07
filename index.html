@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Table.js</title>
+    <link rel="stylesheet" type="text/css" href="css/table.css">
     <style>
 
         html,body{
@@ -10,7 +11,7 @@
             overflow: hidden;
         }
 
-        #wrap{
+        .wrap{
             width: 500px;
             height: 400px;
             border: 1px solid red;
@@ -26,10 +27,24 @@
 </head>
 <body>
     <div class="wrap"></div>
-    <div class="wrap"></div>
     <script>
         new Table({
-            el:".wrap"
+            el:".wrap",
+            th:["姓名","年龄","性别","婚姻状况"],
+            columns:[
+                {data:"name"},
+                {data:"age"},
+                {data:"sex"},
+                {data:"marriage"}
+            ],
+            data:[
+                {name:"小明",age:"20",sex:"男",marriage:"已婚"},
+                {name:"小明",age:"20",sex:"男",marriage:"已婚"},
+                {name:"小明",age:"20",sex:"男",marriage:"已婚"},
+                {name:"小明",age:"20",sex:"男",marriage:"已婚"},
+                {name:"小明",age:"20",sex:"男",marriage:"已婚"},
+                {name:"小明",age:"20",sex:"男",marriage:"已婚"}
+            ]
         });
 
     </script>

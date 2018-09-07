@@ -35,7 +35,16 @@
 
         isUndefined: function (arg) {
             return arg === undefined;
+        },
+
+        isArrayFn: function(value) {
+            if (typeof Array.isArray === "function") {
+                return Array.isArray(value);
+            } else {
+                return Object.prototype.toString.call(value) === "[object Array]";
+            }
         }
+
     };
 
     /*
@@ -56,10 +65,47 @@
             throw new Error("Table传入的el参数必须是字符串");
         }
 
+        if(!obj.th || !typeUtil.isArrayFn(obj.th)){
+            throw new Error("Table传入的th参数必须是数组类型");
+        }
+        for(var i = 0 ; i < obj.th.length; i++){
+            if(typeof obj.th[i] !== "string"){
+                throw new Error("Table表头数组中元素的类型必须全为字符串");
+            }
+        }
+
+        // if (!obj.columns || typeUtil.isArrayFn(obj.columns)) {
+        //     throw new Error("Table传入的columns参数必须是数组类型");
+        // }
+
         var tableContainer = document.querySelector(obj.el);
         if (typeUtil.isNull(tableContainer) || typeUtil.isUndefined(tableContainer)) {
             throw new Error("Html选择器无法找到对应的元素对象");
         }
+
+        var tableEle = document.createElement("table");
+        tableEle.className = "z-table";
+        tableEle.cellSpacing = 0;
+        tableEle.cellPadding = 4;
+        tableEle.border = "1";
+
+        var thStr = "";
+        for(var i = 0 ; i < obj.th.length; i++){
+            thStr += "<th>"+obj.th[i]+"</th>";
+        }
+        tableEle.innerHTML ="<tbody><tr>"+thStr+"</tr></tbody>";
+
+
+        for(var n = 0 ; n < obj.data.length; n++){
+            var tdStr = "";
+            var data = obj.data[n];
+            for(var m = 0 ; m < obj.columns.length ; m++){
+                tdStr += "<td>"+data[obj.columns[m].data]+"</td>";
+            }
+            tableEle.innerHTML+="<tr>"+tdStr+"</tr>";
+        }
+
+        tableContainer.appendChild(tableEle);
     };
 
     return Table;
